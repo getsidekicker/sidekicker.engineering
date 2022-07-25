@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Sidekicker Engineering blog</title>
+    <description></description>
+    <link>http://0.0.0.0:4000/</link>
+    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 25 Jul 2022 07:18:39 -0500</pubDate>
+    <lastBuildDate>Mon, 25 Jul 2022 07:18:39 -0500</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Welcome to Sidekicker Engineering</title>
+        <description>&lt;p&gt;This is an example post&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Jul 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/welcome-to-sidekicker-engineering/</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/welcome-to-sidekicker-engineering/</guid>
+        
+        <category>red</category>
+        
+        <category>yellow</category>
+        
+        
+        <category>engineering</category>
+        
+        <category>team</category>
+        
+      </item>
+    
+  </channel>
+</rss>
