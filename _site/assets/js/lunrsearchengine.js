@@ -13,7 +13,7 @@ var documents = [{
     "id": 2,
     "url": "http://0.0.0.0:4000/",
     "title": "Home",
-    "body": "                                                                                                     Welcome to Sidekicker Engineering              :       This is an example post:                                                                               tristan                24 Jul 2022                                            "
+    "body": "                                                                                                     Welcome to Sidekicker Engineering              :       This is an example post:                                                                               Tristan                24 Jul 2022                                            "
     }, {
     "id": 3,
     "url": "http://0.0.0.0:4000/robots.txt",
