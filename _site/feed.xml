@@ -5,26 +5,181 @@
     <description></description>
     <link>http://0.0.0.0:4000/</link>
     <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 25 Jul 2022 17:08:27 -0500</pubDate>
-    <lastBuildDate>Mon, 25 Jul 2022 17:08:27 -0500</lastBuildDate>
+    <pubDate>Mon, 08 Aug 2022 02:17:31 -0500</pubDate>
+    <lastBuildDate>Mon, 08 Aug 2022 02:17:31 -0500</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
-        <title>Welcome to Sidekicker Engineering</title>
-        <description>&lt;p&gt;This is an example post&lt;/p&gt;
+        <title>Do you need OPCache</title>
+        <description>&lt;p&gt;From &lt;a href=&quot;https://www.php.net/manual/en/book.opcache.php&quot;&gt;PHP official documentation&lt;/a&gt;, we know that:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;OPCache improves PHP performance by storing precompiled script bytecode in shared memory, thereby removing the need for PHP to load and parse scripts on each request.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In other words, after OPCache is configured, the PHP script will be parsed and compiled to OPCode, and saved to the shared memory. So subsequent requests can read the OPCode from memory to reduce the execution time of PHP.&lt;/p&gt;
+
+&lt;p&gt;To make it more clear, the below flowchart describes its life cycle:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2022-08-08-do-you-need-opcache/opcache-life-cycle.png&quot; alt=&quot;OPcache Life Cycle&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-happened-after-i-enabled-opcache&quot;&gt;What happened after I enabled OPCache?&lt;/h2&gt;
+&lt;p&gt;You often see OPCache performance tests online, claiming that it can make your PHP application 2x/3x faster, or the reduction of response time can vary from 14% to 74% as described by AppDynamics.&lt;/p&gt;
+
+&lt;p&gt;You might wonder will this be true for me? I want to show you some results from a real word application first:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2022-08-08-do-you-need-opcache/php-execution-time.png&quot; alt=&quot;PHP Execution Time&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see from the above graph, the PHP execution time was reduced from about 150 ms to 50 ms. Yup, that’s 67% faster. But is that the only metric that can prove the benefits of OPCache? How about CPU and memory usage?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2022-08-08-do-you-need-opcache/cpu-utilisation.png&quot; alt=&quot;CPU Utilisation&quot; /&gt;
+&lt;img src=&quot;/assets/posts/2022-08-08-do-you-need-opcache/memory-utilisation.png&quot; alt=&quot;Memory Utilisation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Surprisingly, the average CPU and memory utilisation of our app containers in AWS ECS was decreased from 10% to 3%, and from 23% to 10% respectively. We didn’t anticipate this before we decided to enable OPCache in the docker containers, so this was a nice bonus.&lt;/p&gt;
+
+&lt;h2 id=&quot;back-to-configuration&quot;&gt;Back to configuration&lt;/h2&gt;
+&lt;p&gt;There are plenty of articles showing you how to install and configure OPCache. An especially useful example is Steve Corona’s &lt;a href=&quot;https://www.scalingphpbook.com/blog/2014/02/14/best-zend-opcache-settings.html&quot;&gt;post&lt;/a&gt;, where he explains the most commonly used settings. But what’s the best approach to figure out the settings yourself? TRY IT ON YOUR STAGING SERVER!&lt;/p&gt;
+
+&lt;p&gt;Give it a best guess, and then check the statistics from your staging/production site and adjust the settings over time. Below is a sample of data from the &lt;code class=&quot;highlighter-rouge&quot;&gt;opcache_get_status()&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&quot;opcache_enabled&quot;: true,
+&quot;cache_full&quot;: false,
+&quot;restart_pending&quot;: false,
+&quot;restart_in_progress&quot;: false,
+&quot;memory_usage&quot;: {
+    &quot;used_memory&quot;: 41037512,
+    &quot;free_memory&quot;: 59625784,
+    &quot;wasted_memory&quot;: 0,
+    &quot;current_wasted_percentage&quot;: 0
+},
+&quot;interned_strings_usage&quot;: {
+    &quot;buffer_size&quot;: 10485336,
+    &quot;used_memory&quot;: 7958976,
+    &quot;free_memory&quot;: 2526360,
+    &quot;number_of_strings&quot;: 99538
+},
+&quot;opcache_statistics&quot;: {
+    &quot;num_cached_scripts&quot;: 1893,
+    &quot;num_cached_keys&quot;: 3240,
+    &quot;max_cached_keys&quot;: 32531,
+    &quot;hits&quot;: 30848167,
+    &quot;start_time&quot;: 1576813046,
+    &quot;last_restart_time&quot;: 0,
+    &quot;oom_restarts&quot;: 0,
+    &quot;hash_restarts&quot;: 0,
+    &quot;manual_restarts&quot;: 0,
+    &quot;misses&quot;: 2066,
+    &quot;blacklist_misses&quot;: 0,
+    &quot;blacklist_miss_ratio&quot;: 0,
+    &quot;opcache_hit_rate&quot;: 99.99330312999581
+}
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in php.ini based on the statistics collected on your server:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;opcache.enabled=1
+
+// remove this setting in dev environment or set it to true,
+// as we don't want OPCache locally.
+opcache.validate_timestamps=0
+
+// this is irrelevant because the validate_timestamps is disabled,
+// but locally OPCache will check for updates on every request.
+opcache.revalidate_freq=0
+
+// enable the opcode cache for the CLI version of PHP.
+opcache.enable_cli=1
+
+// the maximum number of keys in the OPCache hash table,
+// better to use one of the prime numbers from the official manual,
+// and make sure your project has fewer PHP files then the value you set here.
+opcache.max_accelerated_files=16229
+
+// adjust this value based on memory_usage -&amp;gt; used_memory in statistics
+opcache.memory_consumption=128
+
+// adjust this value based on interned_strings_usage -&amp;gt; used_memory in statistics
+opcache.interned_strings_buffer=12
+
+// it has been removed in PHP 7.2.0.
+opcache.fast_shutdown=1
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;any-concerns-before-using-it&quot;&gt;Any concerns before using it?&lt;/h2&gt;
+&lt;p&gt;YES, OPCache is a cache. As with any other cache, the potential issues are around two things:&lt;/p&gt;
+
+&lt;p&gt;Invalidation: This is irrelevant in our use case as we don’t perform in-place deployment, we use &lt;a href=&quot;https://buildkite.com/&quot;&gt;buildkite&lt;/a&gt; to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn’t generate with a unique file.
+Overhead of warming the cache: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn’t go up after the deployment.&lt;/p&gt;
+
+&lt;h2 id=&quot;do-you-need-it&quot;&gt;Do you need it?&lt;/h2&gt;
+&lt;p&gt;As with everything, YMMV. In our case, we saw some awesome improvements (and we’re kind of wondering why we didn’t turn it on years ago!). However, you might not notice obvious improvements for small applications. But it is definitely worth trying out. You can always mess around with it on your staging server to compare the performance before and after the change, and tweak the configs to make it suitable for your applications.&lt;/p&gt;
+
 </description>
-        <pubDate>Sun, 24 Jul 2022 00:00:00 -0500</pubDate>
-        <link>http://0.0.0.0:4000/welcome-to-sidekicker-engineering/</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/welcome-to-sidekicker-engineering/</guid>
+        <pubDate>Mon, 08 Aug 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/do-you-need-opcache/</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/do-you-need-opcache/</guid>
         
-        <category>red</category>
-        
-        <category>yellow</category>
+        <category>performance</category>
         
         
-        <category>engineering</category>
-        
-        <category>team</category>
+        <category>php</category>
         
       </item>
     
