@@ -14,4 +14,4 @@ then take a gander at [http://localhost:4000](http://localhost:4000)
 
 ## Publishing
 
-
+Create a PR and merge to `main` and all your dreams will come true
