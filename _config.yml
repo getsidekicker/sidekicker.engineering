@@ -14,14 +14,19 @@ permalink: /:title/
 # Authors
 authors:
   tristan:
-    name: Tristan
+    name: Tristan Kenney
     display_name: Tristan
     gravatar: d146cf2099b7c570c662c0f9d6ee1b16
-    # email: wowthemesnet@gmail.com
-    # web: https://www.wowthemes.net
-    # twitter: https://twitter.com/wowthemesnet
+    web: https://tristan.kenney.co
+    twitter: https://twitter.com/tristankenney
     description: "Engineering Manager who likes long walks along the beach"
-
+  wesley:
+    name: Wesley Zhang
+    display_name: Wesley
+    avatar: assets/authors/wesley.jpeg
+    web: https://wesleyzhang.me
+    twitter: https://twitter.com/jltxwesley
+    description: "Staff Software Engineer, I build things with AWS, Terraform, Node (and occasionally PHP and Laravel)"
 # Plugins
 plugins:
   - jekyll-paginate
