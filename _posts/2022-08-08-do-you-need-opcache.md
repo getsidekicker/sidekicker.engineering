@@ -39,36 +39,38 @@ There are plenty of articles showing you how to install and configure OPCache. A
 Give it a best guess, and then check the statistics from your staging/production site and adjust the settings over time. Below is a sample of data from the `opcache_get_status()` function:
 
 ```json
-"opcache_enabled": true,
-"cache_full": false,
-"restart_pending": false,
-"restart_in_progress": false,
-"memory_usage": {
-    "used_memory": 41037512,
-    "free_memory": 59625784,
-    "wasted_memory": 0,
-    "current_wasted_percentage": 0
-},
-"interned_strings_usage": {
-    "buffer_size": 10485336,
-    "used_memory": 7958976,
-    "free_memory": 2526360,
-    "number_of_strings": 99538
-},
-"opcache_statistics": {
-    "num_cached_scripts": 1893,
-    "num_cached_keys": 3240,
-    "max_cached_keys": 32531,
-    "hits": 30848167,
-    "start_time": 1576813046,
-    "last_restart_time": 0,
-    "oom_restarts": 0,
-    "hash_restarts": 0,
-    "manual_restarts": 0,
-    "misses": 2066,
-    "blacklist_misses": 0,
-    "blacklist_miss_ratio": 0,
-    "opcache_hit_rate": 99.99330312999581
+{
+    "opcache_enabled": true,
+    "cache_full": false,
+    "restart_pending": false,
+    "restart_in_progress": false,
+    "memory_usage": {
+        "used_memory": 41037512,
+        "free_memory": 59625784,
+        "wasted_memory": 0,
+        "current_wasted_percentage": 0
+    },
+    "interned_strings_usage": {
+        "buffer_size": 10485336,
+        "used_memory": 7958976,
+        "free_memory": 2526360,
+        "number_of_strings": 99538
+    },
+    "opcache_statistics": {
+        "num_cached_scripts": 1893,
+        "num_cached_keys": 3240,
+        "max_cached_keys": 32531,
+        "hits": 30848167,
+        "start_time": 1576813046,
+        "last_restart_time": 0,
+        "oom_restarts": 0,
+        "hash_restarts": 0,
+        "manual_restarts": 0,
+        "misses": 2066,
+        "blacklist_misses": 0,
+        "blacklist_miss_ratio": 0,
+        "opcache_hit_rate": 99.99330312999581
+    }
 }
 ```
 
