@@ -252,7 +252,7 @@
 }
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in php.ini based on the statistics collected on your server:</p>
+<p>From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in <code class="highlighter-rouge">php.ini</code> based on the statistics collected on your server:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -311,8 +311,10 @@ opcache.fast_shutdown=1
 <h2 id="any-concerns-before-using-it">Any concerns before using it?</h2>
 <p>YES, OPCache is a cache. As with any other cache, the potential issues are around two things:</p>
 
-<p>Invalidation: This is irrelevant in our use case as we don’t perform in-place deployment, we use <a href="https://buildkite.com/">buildkite</a> to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn’t generate with a unique file.
-Overhead of warming the cache: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn’t go up after the deployment.</p>
+<ul>
+  <li><strong>Invalidation</strong>: This is irrelevant in our use case as we don’t perform in-place deployment, we use <a href="https://buildkite.com/">buildkite</a> to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn’t generate with a unique file.</li>
+  <li><strong>Overhead of warming the cache</strong>: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn’t go up after the deployment.</li>
+</ul>
 
 <h2 id="do-you-need-it">Do you need it?</h2>
 <p>As with everything, YMMV. In our case, we saw some awesome improvements (and we’re kind of wondering why we didn’t turn it on years ago!). However, you might not notice obvious improvements for small applications. But it is definitely worth trying out. You can always mess around with it on your staging server to compare the performance before and after the change, and tweak the configs to make it suitable for your applications.</p>

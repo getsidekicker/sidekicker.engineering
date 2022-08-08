@@ -72,7 +72,7 @@ Give it a best guess, and then check the statistics from your staging/production
 }
 ```
 
-From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in php.ini based on the statistics collected on your server:
+From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in `php.ini` based on the statistics collected on your server:
 
 ```
 opcache.enabled=1
@@ -106,8 +106,8 @@ opcache.fast_shutdown=1
 ## Any concerns before using it?
 YES, OPCache is a cache. As with any other cache, the potential issues are around two things:
 
-Invalidation: This is irrelevant in our use case as we don't perform in-place deployment, we use [buildkite](https://buildkite.com/) to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn't generate with a unique file.
-Overhead of warming the cache: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn't go up after the deployment.
+* **Invalidation**: This is irrelevant in our use case as we don't perform in-place deployment, we use [buildkite](https://buildkite.com/) to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn't generate with a unique file.
+* **Overhead of warming the cache**: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn't go up after the deployment.
 
 ## Do you need it?
 As with everything, YMMV. In our case, we saw some awesome improvements (and we're kind of wondering why we didn't turn it on years ago!). However, you might not notice obvious improvements for small applications. But it is definitely worth trying out. You can always mess around with it on your staging server to compare the performance before and after the change, and tweak the configs to make it suitable for your applications.

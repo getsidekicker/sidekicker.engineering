@@ -5,8 +5,8 @@
     <description></description>
     <link>http://0.0.0.0:4000/</link>
     <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 08 Aug 2022 02:17:31 -0500</pubDate>
-    <lastBuildDate>Mon, 08 Aug 2022 02:17:31 -0500</lastBuildDate>
+    <pubDate>Mon, 08 Aug 2022 02:35:54 -0500</pubDate>
+    <lastBuildDate>Mon, 08 Aug 2022 02:35:54 -0500</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -106,7 +106,7 @@
 }
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in php.ini based on the statistics collected on your server:&lt;/p&gt;
+&lt;p&gt;From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in &lt;code class=&quot;highlighter-rouge&quot;&gt;php.ini&lt;/code&gt; based on the statistics collected on your server:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -165,8 +165,10 @@ opcache.fast_shutdown=1
 &lt;h2 id=&quot;any-concerns-before-using-it&quot;&gt;Any concerns before using it?&lt;/h2&gt;
 &lt;p&gt;YES, OPCache is a cache. As with any other cache, the potential issues are around two things:&lt;/p&gt;
 
-&lt;p&gt;Invalidation: This is irrelevant in our use case as we don’t perform in-place deployment, we use &lt;a href=&quot;https://buildkite.com/&quot;&gt;buildkite&lt;/a&gt; to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn’t generate with a unique file.
-Overhead of warming the cache: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn’t go up after the deployment.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Invalidation&lt;/strong&gt;: This is irrelevant in our use case as we don’t perform in-place deployment, we use &lt;a href=&quot;https://buildkite.com/&quot;&gt;buildkite&lt;/a&gt; to automate our delivery pipelines, each deployment will spin up new docker containers in AWS ECS with the latest code. Where invalidation could potentially be an issue would be any dynamic PHP files where content changes at runtime but doesn’t generate with a unique file.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Overhead of warming the cache&lt;/strong&gt;: This is minimal. Post-deployment, every PHP file will cache miss. So the first n requests that have new file execution paths will be moderately slower than at present. But if you look at the chart I showed you earlier, the PHP execution time didn’t go up after the deployment.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;do-you-need-it&quot;&gt;Do you need it?&lt;/h2&gt;
 &lt;p&gt;As with everything, YMMV. In our case, we saw some awesome improvements (and we’re kind of wondering why we didn’t turn it on years ago!). However, you might not notice obvious improvements for small applications. But it is definitely worth trying out. You can always mess around with it on your staging server to compare the performance before and after the change, and tweak the configs to make it suitable for your applications.&lt;/p&gt;
