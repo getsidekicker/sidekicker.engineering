@@ -38,7 +38,7 @@ There are plenty of articles showing you how to install and configure OPCache. A
 
 Give it a best guess, and then check the statistics from your staging/production site and adjust the settings over time. Below is a sample of data from the `opcache_get_status()` function:
 
-```
+```json
 "opcache_enabled": true,
 "cache_full": false,
 "restart_pending": false,
@@ -74,32 +74,32 @@ Give it a best guess, and then check the statistics from your staging/production
 
 From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in `php.ini` based on the statistics collected on your server:
 
-```
+```ini
 opcache.enabled=1
 
-// remove this setting in dev environment or set it to true,
-// as we don't want OPCache locally.
+# remove this setting in dev environment or set it to true,
+# as we don't want OPCache locally.
 opcache.validate_timestamps=0
 
-// this is irrelevant because the validate_timestamps is disabled,
-// but locally OPCache will check for updates on every request.
+# this is irrelevant because the validate_timestamps is disabled,
+# but locally OPCache will check for updates on every request.
 opcache.revalidate_freq=0
 
-// enable the opcode cache for the CLI version of PHP.
+# enable the opcode cache for the CLI version of PHP.
 opcache.enable_cli=1
 
-// the maximum number of keys in the OPCache hash table,
-// better to use one of the prime numbers from the official manual,
-// and make sure your project has fewer PHP files then the value you set here.
+# the maximum number of keys in the OPCache hash table,
+# better to use one of the prime numbers from the official manual,
+# and make sure your project has fewer PHP files then the value you set here.
 opcache.max_accelerated_files=16229
 
-// adjust this value based on memory_usage -> used_memory in statistics
+# adjust this value based on memory_usage -> used_memory in statistics
 opcache.memory_consumption=128
 
-// adjust this value based on interned_strings_usage -> used_memory in statistics
+# adjust this value based on interned_strings_usage -> used_memory in statistics
 opcache.interned_strings_buffer=12
 
-// it has been removed in PHP 7.2.0.
+# it has been removed in PHP 7.2.0.
 opcache.fast_shutdown=1
 ```
 

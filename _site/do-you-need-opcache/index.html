@@ -188,7 +188,7 @@
 
 <p>Give it a best guess, and then check the statistics from your staging/production site and adjust the settings over time. Below is a sample of data from the <code class="highlighter-rouge">opcache_get_status()</code> function:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -219,42 +219,42 @@
 29
 30
 31
-</pre></td><td class="rouge-code"><pre>"opcache_enabled": true,
-"cache_full": false,
-"restart_pending": false,
-"restart_in_progress": false,
-"memory_usage": {
-    "used_memory": 41037512,
-    "free_memory": 59625784,
-    "wasted_memory": 0,
-    "current_wasted_percentage": 0
-},
-"interned_strings_usage": {
-    "buffer_size": 10485336,
-    "used_memory": 7958976,
-    "free_memory": 2526360,
-    "number_of_strings": 99538
-},
-"opcache_statistics": {
-    "num_cached_scripts": 1893,
-    "num_cached_keys": 3240,
-    "max_cached_keys": 32531,
-    "hits": 30848167,
-    "start_time": 1576813046,
-    "last_restart_time": 0,
-    "oom_restarts": 0,
-    "hash_restarts": 0,
-    "manual_restarts": 0,
-    "misses": 2066,
-    "blacklist_misses": 0,
-    "blacklist_miss_ratio": 0,
-    "opcache_hit_rate": 99.99330312999581
-}
-</pre></td></tr></tbody></table></code></pre></div></div>
+</pre></td><td class="rouge-code"><pre><span class="s2">"opcache_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="s2">"cache_full"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+</span><span class="s2">"restart_pending"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+</span><span class="s2">"restart_in_progress"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+</span><span class="s2">"memory_usage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"used_memory"</span><span class="p">:</span><span class="w"> </span><span class="mi">41037512</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"free_memory"</span><span class="p">:</span><span class="w"> </span><span class="mi">59625784</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"wasted_memory"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"current_wasted_percentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="s2">"interned_strings_usage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"buffer_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">10485336</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"used_memory"</span><span class="p">:</span><span class="w"> </span><span class="mi">7958976</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"free_memory"</span><span class="p">:</span><span class="w"> </span><span class="mi">2526360</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"number_of_strings"</span><span class="p">:</span><span class="w"> </span><span class="mi">99538</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="s2">"opcache_statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"num_cached_scripts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1893</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"num_cached_keys"</span><span class="p">:</span><span class="w"> </span><span class="mi">3240</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"max_cached_keys"</span><span class="p">:</span><span class="w"> </span><span class="mi">32531</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hits"</span><span class="p">:</span><span class="w"> </span><span class="mi">30848167</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1576813046</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_restart_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"oom_restarts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hash_restarts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"manual_restarts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"misses"</span><span class="p">:</span><span class="w"> </span><span class="mi">2066</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"blacklist_misses"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"blacklist_miss_ratio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"opcache_hit_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.99330312999581</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>From the example, we can see that the OPCache hit rate is 99.99%, which is pretty impressive. After leaving the OPCache running for a few days to a couple of weeks, you should be able to adjust the settings in <code class="highlighter-rouge">php.ini</code> based on the statistics collected on your server:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -280,32 +280,32 @@
 24
 25
 26
-</pre></td><td class="rouge-code"><pre>opcache.enabled=1
+</pre></td><td class="rouge-code"><pre><span class="py">opcache.enabled</span><span class="p">=</span><span class="s">1</span>
 
-// remove this setting in dev environment or set it to true,
-// as we don't want OPCache locally.
-opcache.validate_timestamps=0
+<span class="c"># remove this setting in dev environment or set it to true,
+# as we don't want OPCache locally.
+</span><span class="py">opcache.validate_timestamps</span><span class="p">=</span><span class="s">0</span>
 
-// this is irrelevant because the validate_timestamps is disabled,
-// but locally OPCache will check for updates on every request.
-opcache.revalidate_freq=0
+<span class="c"># this is irrelevant because the validate_timestamps is disabled,
+# but locally OPCache will check for updates on every request.
+</span><span class="py">opcache.revalidate_freq</span><span class="p">=</span><span class="s">0</span>
 
-// enable the opcode cache for the CLI version of PHP.
-opcache.enable_cli=1
+<span class="c"># enable the opcode cache for the CLI version of PHP.
+</span><span class="py">opcache.enable_cli</span><span class="p">=</span><span class="s">1</span>
 
-// the maximum number of keys in the OPCache hash table,
-// better to use one of the prime numbers from the official manual,
-// and make sure your project has fewer PHP files then the value you set here.
-opcache.max_accelerated_files=16229
+<span class="c"># the maximum number of keys in the OPCache hash table,
+# better to use one of the prime numbers from the official manual,
+# and make sure your project has fewer PHP files then the value you set here.
+</span><span class="py">opcache.max_accelerated_files</span><span class="p">=</span><span class="s">16229</span>
 
-// adjust this value based on memory_usage -&gt; used_memory in statistics
-opcache.memory_consumption=128
+<span class="c"># adjust this value based on memory_usage -&gt; used_memory in statistics
+</span><span class="py">opcache.memory_consumption</span><span class="p">=</span><span class="s">128</span>
 
-// adjust this value based on interned_strings_usage -&gt; used_memory in statistics
-opcache.interned_strings_buffer=12
+<span class="c"># adjust this value based on interned_strings_usage -&gt; used_memory in statistics
+</span><span class="py">opcache.interned_strings_buffer</span><span class="p">=</span><span class="s">12</span>
 
-// it has been removed in PHP 7.2.0.
-opcache.fast_shutdown=1
+<span class="c"># it has been removed in PHP 7.2.0.
+</span><span class="py">opcache.fast_shutdown</span><span class="p">=</span><span class="s">1</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="any-concerns-before-using-it">Any concerns before using it?</h2>
